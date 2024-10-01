@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Web Page Previewer</title>
+		<script>
+			function Goto(web) {
+				window.location.href = web;
+			}
+
+			window.onload = function () {
+				const urlInput = document.querySelector('.URL');
+				const goButton = document.querySelector('.goButton');
+				const setHeightInput = document.querySelector('.setHeight');
+				const setHeightButton = document.querySelector('.setHeightButton');
+				const iframe = document.querySelector('iframe');
+
+				// Function to update iframe src
+				function updateIframeSrc() {
+					const url = urlInput.value;
+					if (url) {
+						iframe.src = url.startsWith('http') ? url : 'http://' + url;
+					}
+				}
+
+				// Function to update iframe height
+				function updateIframeHeight() {
+					const height = setHeightInput.value;
+					if (height) {
+						iframe.style.height = height + 'px';
+					}
+				}
+
+				// Trigger iframe src update on button click or enter key press
+				goButton.addEventListener('click', updateIframeSrc);
+				urlInput.addEventListener('keydown', function (e) {
+					if (e.key === 'Enter') {
+						updateIframeSrc();
+					}
+				});
+
+				setHeightInput.addEventListener('keydown', function (e) {
+					if (e.key === 'Enter') {
+						updateIframeHeight();
+					}
+				});
+
+				// Set iframe height on button click
+					setHeightButton.addEventListener('click', updateIframeHeight);
+				};
+		</script>
+		<style>
+			h1 {
+				text-align: center;
+				font-family: sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Web Page Previewer</h1>
+		<hr>
+		<a href="../index.html">Back to Home</a>
+		<hr>
+		<div class="buttons">
+			<input class="URL" placeholder="URL here">
+			<button class="goButton">Go</button>
+			<span>|</span>
+			<input class="setHeight" type="number" placeholder="Set height (Default: 750)">
+			<button class="setHeightButton">Set</button>
+
+			<iframe src="webPagePreviewerTip.txt" width="100%" height="750px"></iframe>
+		</div>
+	</body>
+</html>

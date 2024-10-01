@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Go Web</title>
+		<script>
+			function Goto(web) {
+				window.location.href = web;
+			}
+			function GoFromInput(className) {
+				const input = document.querySelector(`.${className}`);
+				const url = input.value;
+				if (url) {
+					window.location.href = url.startsWith('http') ? url : 'http://' + url;
+				} else {
+					alert('Please enter a valid URL');
+				}
+			}
+			function GoFromGoogleInput(className) {
+				const input = document.querySelector(`.${className}`);
+				const url = input.value;
+				if (url) {
+					window.location.href = 'https://www.google.com/search?q=' + url;
+				} else {
+					alert('Please enter a valid text');
+				}
+			}
+			function handleEnterKey(event, className) {
+				if (className === "httpsLink") {
+					if (event.key === 'Enter') {
+						GoFromInput(className);
+					}
+				}
+				else if (className === "googleScratch") {
+					if (event.key === 'Enter') {
+						GoFromGoogleInput(className);
+					}
+				}
+			}
+		</script>
+		<style>
+			h1 {
+				text-align: center;
+				font-family: sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Go Web</h1>
+		<hr>
+		<a href="../index.html">Back to Home</a>
+		<hr>
+		<div class="buttons">
+			<span>Go web from URL: </span>
+			<input class="httpsLink" type="text" placeholder="Enter URL" onkeydown="handleEnterKey(event, 'httpsLink')">
+			<button onclick="GoFromInput('httpsLink')">Go</button>
+			<br><br>
+			<span>Go web from Google:</span>
+			<input class="googleScratch" type="text" placeholder="Enter URL" onkeydown="handleEnterKey(event, 'googleScratch')">
+			<button onclick="GoFromGoogleInput('googleScratch')">Go</button>
+			<span> OR </span>
+			<button onclick="Goto('https://www.google.com')">Go to Google.com</button>
+		</div>
+	</body>
+</html>
